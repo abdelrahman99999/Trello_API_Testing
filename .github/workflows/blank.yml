@@ -26,3 +26,8 @@ jobs:
 
       - name: Run Newman
         run: newman run Trello_APIs.postman_collection.json --env-var "key=${{secrets.key}}"    --env-var "token=${{secrets.token}}" -r "cli,json,junit,htmlextra" 
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Newman Reports
+          path: ./newman
