@@ -21,4 +21,4 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: newman run Trello_APIs.postman_collection.json -e ./Trello_ENV.postman_environment.json --env-var "key=${{secrets.key}}"    --env-var "token=${{secrets.token}}"
+        run: newman run Trello_APIs.postman_collection.json --env-var "key=${{secrets.key}}"    --env-var "token=${{secrets.token}}"
