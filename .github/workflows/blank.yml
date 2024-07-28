@@ -18,7 +18,11 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
+      
+      # No need to install Newman,npm,node as they already installed on the machine
+      
+      - name: Install dependences 
+        run: npm install -g newman-reporter-htmlextra
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: newman run Trello_APIs.postman_collection.json --env-var "key=${{secrets.key}}"    --env-var "token=${{secrets.token}}"
+      - name: Run Newman
+        run: newman run Trello_APIs.postman_collection.json --env-var "key=${{secrets.key}}"    --env-var "token=${{secrets.token}}" -r "cli,json,junit,htmlextra" 
