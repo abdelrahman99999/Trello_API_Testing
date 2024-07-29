@@ -2,6 +2,7 @@
 Using Newman to automate Postman Collection of Trello API requests  
 
 # GitHub Actions
+- Use Github Secrets to store API token and key
 - No need to install Newman and npm on the machine as they are already installed
 - Install dependencies for generate HTML Reports
 - Use some actions to upload Artifacts (Generated HTML,json,juint reports)
