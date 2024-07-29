@@ -1,2 +1,9 @@
 # Trello_API_Testing
-Trying using Newman with Postman Collection of Trello API requests  
+Using Newman to automate Postman Collection of Trello API requests  
+
+# GitHub Actions
+- No need to install Newman and npm on the machine as they are already installed
+- Install dependencies for generate HTML Reports
+- Use some actions to upload Artifacts (Generated HTML,json,juint reports)
+# Result after run
+![alt text](https://drive.google.com/uc?export=view&id=1XubEXyeo_TnhY7_nrTFNP1t5VoVzTtFa)
