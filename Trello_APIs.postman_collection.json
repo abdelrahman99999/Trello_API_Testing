@@ -15,7 +15,27 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
-							"});"
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.test(\"check already actual no of boards\", function () {\r",
+							"    pm.expect(jsonData).with.lengthOf(2);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"check if there is a board with name\", function () {\r",
+							"    for (let i = 0; i < jsonData.length; i++) {\r",
+							"        console.log(i);\r",
+							"        if(jsonData[i].name == \"Testing\"){\r",
+							"            pm.expect(true).to.be.true;\r",
+							"            return;\r",
+							"        }\r",
+							"        \r",
+							"    }\r",
+							"    pm.expect(false).to.be.true;\r",
+							"    \r",
+							"});\r",
+							"\r",
+							""
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -71,6 +91,22 @@
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"check if the new board is created with pre-defined name\", function () {\r",
+							"    pm.expect(jsonData.name).to.be.equal(pm.environment.get(\"BoardName\"));\r",
+							"    \r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
 							"\r",
 							""
 						],
@@ -138,7 +174,25 @@
 							"\r",
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
-							"});"
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"check if the new list is created with pre-defined name\", function () {\r",
+							"    pm.expect(jsonData.name).to.be.equal(pm.environment.get(\"ListName\"));\r",
+							"    \r",
+							"});\r",
+							"\r",
+							"pm.test(\"check if the new list is created with no color\", function () {\r",
+							"    pm.expect(jsonData.color).to.be.null;\r",
+							"    \r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							""
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -199,9 +253,21 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+							"var jsonData = pm.response.json();\r",
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
-							"});"
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"pm.test(\"Your test name\", function () {\r",
+							"    \r",
+							"    pm.expect(jsonData.desc).to.eql(\"dummy desc\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -222,7 +288,7 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "https://api.trello.com/1/cards?idList={{ListID}}&key={{key}}&token={{token}}&name={{CardName}}",
+					"raw": "https://api.trello.com/1/cards?idList={{ListID}}&key={{key}}&token={{token}}&name={{CardName}}&desc=dummy%20desc",
 					"protocol": "https",
 					"host": [
 						"api",
@@ -249,6 +315,10 @@
 						{
 							"key": "name",
 							"value": "{{CardName}}"
+						},
+						{
+							"key": "desc",
+							"value": "dummy%20desc"
 						}
 					]
 				}
@@ -256,7 +326,7 @@
 			"response": []
 		},
 		{
-			"name": "Get All My Boards Copy",
+			"name": "Get All My Boards 2",
 			"event": [
 				{
 					"listen": "test",
@@ -264,7 +334,9 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
-							"});"
+							"});\r",
+							"\r",
+							""
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -313,9 +385,25 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+							"var jsonData = pm.response.json();\r",
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"check if the list is archived with specific name\", function () {\r",
+							"    \r",
+							"    pm.expect(jsonData.name).to.be.equal(pm.environment.get(\"ListName\"));\r",
 							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -372,7 +460,14 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
-							"});"
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Check if the board is deleted successfully _value is equal to null\", function () {\r",
+							"\r",
+							"    pm.expect(pm.response.json()._value).to.be.null;\r",
+							"});\r",
+							""
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -416,7 +511,7 @@
 			"response": []
 		},
 		{
-			"name": "Get All My Boards Copy 2",
+			"name": "Get All My Boards 3",
 			"event": [
 				{
 					"listen": "test",
